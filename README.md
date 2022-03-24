@@ -2,10 +2,11 @@
 Capstone honest backend
 
 Project : Gradle Project
-Language : Java
-Spring Boot : 2.6.4
-Projecct Metadata :
-Group : honest
-Artifact : honest-backenc
-Packaging : jar
-java : 11
+<br/>
+Language : Java<br/>
+Spring Boot : 2.6.4<br/>
+Projecct Metadata :<br/>
+Group : honest<br/>
+Artifact : honest-backenc<br/>
+Packaging : jar<br/>
+java : 11<br/>
