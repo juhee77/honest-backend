@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class userController {
     @ResponseBody
 
-    @RequestMapping(value="/userSave.do" , produces="application/json; charset=utf-8")  // json.do 라는 객체로
+    @RequestMapping(value="/userSave" , produces="application/json; charset=utf-8")  // json.do 라는 객체로
     public JSONObject json() {
         JSONObject jsonMain=new JSONObject();										// json 객체 [{변수명:값, 변수명:값}]
         JSONArray jArray=new JSONArray();											// json 배열

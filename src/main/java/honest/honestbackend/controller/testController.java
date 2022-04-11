@@ -1,33 +1,40 @@
 package honest.honestbackend.controller;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
-import com.nimbusds.jose.shaded.json.JSONObject;
+import honest.honestbackend.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import honest.honestbackend.service.userRepository;
+import honest.honestbackend.service.userService;
 
 @Controller
 public class testController {
 
-    @ResponseBody
 
-    @RequestMapping(value="/json.do" , produces="application/json; charset=utf-8")  // json.do 라는 객체로
-    public JSONObject json() {
-        JSONObject jsonMain=new JSONObject();										// json 객체 [{변수명:값, 변수명:값}]
-        JSONArray jArray=new JSONArray();											// json 배열
-        JSONObject row = new JSONObject();
-        row.put("name", "naver");
-        row.put("email", "naver@naver.com");
-        jArray.add(0, row);
+    @Autowired
+    userService userService;
+    @Autowired
+    userRepository userRepository;
 
-        JSONObject row2 = new JSONObject();
-        row2.put("name", "kokanry");
-        row2.put("email", "kokanry@naver.com");
-        jArray.add(1, row2);              // jArray = members에 들어갈 변수명,값들
+    @ResponseBody //return to body
+    @GetMapping("/json.do")
+    public String getTest(User user){
+        userRepository.save(user);
+        return "get 요청 받음 성공!!"+user.pringStirng();
+    }
 
-        jsonMain.put("members", jArray);  // jsonMain = members, books, items 같은거 여러개 가능
-        return jsonMain;
+    @ResponseBody //return to body
+    @PostMapping("/userSave.do")
+    public String postTest(User user){
+        userRepository.save(user);
+        return "post 성공";
+    }
+
+
+    @RequestMapping(value="/json" , produces="application/json; charset=utf-8")  // json.do 라는 객체로
+    public HttpStatus json(@RequestBody User user) {
+        System.out.println(user.pringStirng());
+        return HttpStatus.OK;
     }
 }
