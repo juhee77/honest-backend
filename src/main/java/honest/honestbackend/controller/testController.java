@@ -11,25 +11,10 @@ import honest.honestbackend.service.userService;
 @Controller
 public class testController {
 
-
     @Autowired
     userService userService;
     @Autowired
     userRepository userRepository;
-
-    @ResponseBody //return to body
-    @GetMapping("/json.do")
-    public String getTest(User user){
-        userRepository.save(user);
-        return "get 요청 받음 성공!!"+user.pringStirng();
-    }
-
-    @ResponseBody //return to body
-    @PostMapping("/userSave.do")
-    public String postTest(User user){
-        userRepository.save(user);
-        return "post 성공";
-    }
 
 
     @RequestMapping(value="/json" , produces="application/json; charset=utf-8")  // json.do 라는 객체로

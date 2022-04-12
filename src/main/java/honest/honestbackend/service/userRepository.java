@@ -4,9 +4,10 @@ import honest.honestbackend.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface userRepository extends JpaRepository<User,Long> {
-    /*참고 --쿼리사용
-    public CustomerVO findById(String username);
 
+    public User findById(String id);
+
+/*참고 --쿼리사용
     @Query("SELECT a FROM USER a WHERE a.oid = ?1")
     public CustomerVO findByUid(int id);
 

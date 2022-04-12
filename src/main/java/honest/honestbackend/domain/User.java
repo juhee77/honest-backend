@@ -15,7 +15,6 @@ import javax.persistence.Id;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) ////MySQL의 AUTO_INCREMENT
     private String id;
 
     private String nickname;
