@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.net.URI;
 
 @Getter @Setter
 @ToString
@@ -24,10 +25,10 @@ public class User {
     private Integer height;
     private Integer activity_index;
     private Integer target_calories;
-    private byte[] profile;
+    private String profile;
 
 
-    public User(String id, String nickname, char sex, int age, int height, int weight, int activity_index, int target_calories) {
+    public User(String id, String nickname, char sex, int age, int height, int weight, int activity_index, int target_calories, String profile) {
         this.id = id;
         this.nickname = nickname;
         this.sex = sex;
@@ -36,6 +37,7 @@ public class User {
         this.weight = weight;
         this.activity_index = activity_index;
         this.target_calories = target_calories;
+        this.profile=profile;
     }
 
     public User() {
@@ -110,6 +112,8 @@ public class User {
         this.target_calories =target_calories;
     }
 
+    public void setProfile(String profile){this.profile=profile;}
+    public String getProfile(){ return profile;}
 
     public String pringStirng(){
         return  "user"+id+"  "+nickname+"   "+sex + "   " + getActivity_index();
