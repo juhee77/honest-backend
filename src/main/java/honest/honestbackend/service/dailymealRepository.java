@@ -19,5 +19,8 @@ public interface dailymealRepository extends JpaRepository<Dailymeal,Long> {
 
 
 
+
+
+
 }
 
