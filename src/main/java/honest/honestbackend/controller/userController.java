@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class userController {
 
     @Autowired
-    honest.honestbackend.service.userService userService;
+    userService userService;
     @Autowired
-    honest.honestbackend.service.userRepository userRepository;
+    userRepository userRepository;
 
     @ResponseBody
     @GetMapping("/checkUserId.do")
