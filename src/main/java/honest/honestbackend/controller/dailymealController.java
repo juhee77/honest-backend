@@ -17,7 +17,7 @@ public class dailymealController {
     @Autowired
     dailymealService dailymealService;
 
-
+/*
     @ResponseBody //dailymeal save to DB
     @PostMapping("/dailymealSave.do")
     public String userSavePost(Dailymeal dailymeal){
@@ -31,10 +31,12 @@ public class dailymealController {
         //return null;
     }
 
+
     @ResponseBody
     @GetMapping("/updateDailyMealInfo.do")
     public Dailymeal updateDailyMealInfo(Dailymeal dailymeal){
 
         return dailymeal;
     }
+    */
 }

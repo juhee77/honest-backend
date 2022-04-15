@@ -18,9 +18,8 @@ public class dailymealService {
         dailymealRepository.save(dailymeal);
     }
 
-    public void setId(Dailymeal dailymeal){
-        int count = dailymealRepository.countAllBy();
-
-    }
+    //public void setId(Dailymeal dailymeal){
+    //    int count = dailymealRepository.countAllBy();
+    //}
 
 }

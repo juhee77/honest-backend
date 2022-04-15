@@ -1,21 +1,26 @@
 package honest.honestbackend.domain;
-
+//https://techblog.woowahan.com/2595/
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 @Entity
-public class Dailymeal {
+@Table(name = "dailymeal")
+@IdClass(DailymealId.class)
+public class Dailymeal implements Serializable {
     @Id
+    @Column(name="userID")
     private String userId;
+
     @Id
+    @Column(name="datekey")
     private Date dateKey;
 
     private int stepCount;
