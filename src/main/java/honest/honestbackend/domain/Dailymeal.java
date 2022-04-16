@@ -29,5 +29,6 @@ public class Dailymeal implements Serializable {
     private int protein;
     private int carbohydrate;
     private int fat;
+    private long dailymealid;
 
 }

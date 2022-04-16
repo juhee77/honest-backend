@@ -22,15 +22,11 @@ public class dailymealController {
 
     @ResponseBody //dailymeal save to DB
     @PostMapping("/dailymealSave.do")
-    public String userSavePost(Dailymeal dailymeal){
-        //if(dailymealRepository.findById(dailymeal.getUserId(), dailymeal.getDateKey())==null){
+    public String dailyMealSavePost(Dailymeal dailymeal){
+        dailymeal.setDailymealid(dailymealRepository.countAllBy()+1); //dailymeal은 count에서 하나씩 증가된 코드
+
             dailymealRepository.save(dailymeal);
-        //}
-        //else{
-        //    updateDailyMealInfo(dailymeal);
-        //}
         return "post 성공";
-        //return null;
     }
 
 /*
@@ -41,6 +37,7 @@ public class dailymealController {
         return dailymeal;
     }
     */
+
 
     @ResponseBody
     @GetMapping("/test.do")

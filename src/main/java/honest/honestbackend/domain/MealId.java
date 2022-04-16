@@ -12,5 +12,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class MealId implements Serializable {
     private String userid;
-    private int dailymealid;
+    private long dailymealid;
+    private long mealid;
 }

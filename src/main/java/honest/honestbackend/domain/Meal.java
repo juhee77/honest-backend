@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -20,12 +21,17 @@ public class Meal implements Serializable {
     private String userid;
     @Id
     //@Column(name="dailymealid")
-    private int dailymealid;
+    private long dailymealid;
+    @Id
+    private long mealid;
 
     private int calorie;
     private int protein;
     private int carbohydrate;
     private int fat;
     private String mealname;
+    private String mealphoto;
+    private Date savetime;
+    private int timeflag;
 
 }

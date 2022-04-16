@@ -9,4 +9,5 @@ import java.util.Date;
 
 public interface mealRepository extends JpaRepository<Meal, MealId> { //제네릭 타입
     //public Meal findById(String userId, Date date);
+    public int countAllBy();
 }
