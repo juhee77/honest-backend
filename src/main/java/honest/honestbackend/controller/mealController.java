@@ -1,30 +1,27 @@
 package honest.honestbackend.controller;
 
 import honest.honestbackend.domain.Dailymeal;
-import honest.honestbackend.domain.User;
-import honest.honestbackend.service.dailymealRepository;
-import honest.honestbackend.service.dailymealService;
+import honest.honestbackend.domain.Meal;
+import honest.honestbackend.service.mealRepository;
+import honest.honestbackend.service.mealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-
 @Controller
-public class dailymealController {
+public class mealController {
     @Autowired
-    dailymealRepository dailymealRepository;
+    honest.honestbackend.service.mealRepository mealRepository;
     @Autowired
-    dailymealService dailymealService;
-
+    honest.honestbackend.service.mealService mealService;
 
     @ResponseBody //dailymeal save to DB
-    @PostMapping("/dailymealSave.do")
-    public String userSavePost(Dailymeal dailymeal){
+    @PostMapping("/mealSave.do")
+    public String userSavePost(Meal Meal){
         //if(dailymealRepository.findById(dailymeal.getUserId(), dailymeal.getDateKey())==null){
-            dailymealRepository.save(dailymeal);
+        mealRepository.save(Meal);
         //}
         //else{
         //    updateDailyMealInfo(dailymeal);
@@ -43,9 +40,9 @@ public class dailymealController {
     */
 
     @ResponseBody
-    @GetMapping("/test.do")
+    @GetMapping("/mealtest.do")
     public void test(String s){
-        dailymealService.test();
+        mealService.mealTest();
     }
 
 }
