@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+
 
 @Data
 @NoArgsConstructor
