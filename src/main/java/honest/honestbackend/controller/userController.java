@@ -38,6 +38,29 @@ public class userController {
         return "post 성공";
     }
 
+    @ResponseBody
+    @PostMapping("/updatePost.do")
+    public String updatePost(User user){
+        //System.out.println(user.getId());
+        if(userRepository.findById(user.getId())!=null){
+
+            String id=user.getId();
+            String nickname=user.getNickname();
+            char sex=user.getSex();
+            Integer age=user.getAge();
+            Integer weight=user.getWeight();
+            Integer height=user.getHeight();
+            Integer activity_index=user.getActivity_index();
+            Integer target_calories=user.getTarget_calories();
+            String profile=user.getProfile();
+
+            userRepository.updateById(id,nickname,sex,age,weight,height,activity_index,target_calories,profile);
+            return "update 성공";
+        }
+        else
+            return null;
+    }
+
 
     @ResponseBody //참고용
     @GetMapping("/json.do")
