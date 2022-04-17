@@ -43,7 +43,7 @@ public class userController {
     @GetMapping("/json.do")
     public String getTest(User user){
         userRepository.save(user);
-        return "get 요청 받음 성공!!"+user.pringStirng();
+        return "get 요청 받음 성공!!"+user.toString();
     }
 
     @ResponseBody

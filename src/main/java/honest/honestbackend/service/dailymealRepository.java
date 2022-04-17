@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Date;
+import java.sql.Date;
 
 
 public interface dailymealRepository extends JpaRepository<Dailymeal, DailymealId> {
