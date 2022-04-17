@@ -61,6 +61,17 @@ public class userController {
             return null;
     }
 
+    @ResponseBody
+    @GetMapping("/deleteUser.do")
+    public String deleteIdGet(String id){
+        if(userRepository.findById(id)!=null){
+            User user = userRepository.findById(id);
+            userRepository.delete(user);
+            return "삭제 성공";
+        }
+        else
+            return null;
+    }
 
     @ResponseBody //참고용
     @GetMapping("/json.do")

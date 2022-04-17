@@ -36,7 +36,6 @@ public interface userRepository extends JpaRepository<User,Long> {
         //void updateById(@Param("id") String id, @Param("nickname") String nickname, @Param("sex") char sex, @Param("age") Integer age, @Param("weight") Integer weight, @Param("height") Integer height, @Param("activity_index") Integer activity_index, @Param("target_calories") Integer target_calories, @Param("profile") String profile);
     void updateById(String id, String nickname, char sex, Integer age, Integer weight, Integer height, Integer activity_index, Integer target_calories,String profile);
 
-
 /*참고 --쿼리사용
     @Query("SELECT a FROM USER a WHERE a.oid = ?1")
     public CustomerVO findByUid(int id);
