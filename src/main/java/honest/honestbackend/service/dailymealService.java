@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -29,7 +31,7 @@ public class dailymealService {
         Dailymeal dailymeal = dailymealRepository.findByDailymealId(id, datekey);
 
         //System.out.println(dailymeal2.toString());
-        if(dailymeal==null){
+        if(dailymeal==null){ //TODO: 나중에 이 부분은 생성된 날짜만 기록되어 있어야 하니까 생략하고 ( NULL로 리턴해서 안드로이드에서 해당날짜에 대한 정보는 없습니다로 출력하도록 해야함)
             System.out.println("중복없음!");
             Dailymeal Dailymeal = new Dailymeal(id, datekey, 0, 0, 0, 0, 0, dailymealRepository.countAllBy()+1);
             //dailymealRepository.save(Dailymeal); // 만약 없으면 새로 만들기 , make new dailymeal
