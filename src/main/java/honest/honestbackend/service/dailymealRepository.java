@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.util.List;
 
@@ -21,6 +23,18 @@ public interface dailymealRepository extends JpaRepository<Dailymeal, DailymealI
 
     public int countAllBy();
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE Dailymeal d SET d.userid = ?1, " +
+            "d.datekey=?2, " +
+            "d.stepcount=?3, " +
+            "d.calorie=?4, " +
+            "d.protein=?5, " +
+            "d.carbohydrate=?6, " +
+            "d.fat=?7, " +
+            "d.dailymealid=?8 " +
+            "where d.userid = ?1 and d.datekey=?2")
+    void updateById(String userid, Date datekey, int stepcount, int calorie, int protein, int carbohydrate, int fat, BigInteger dailymealid);
 
     //@Transactional
     //@Modifying(clearAutomatically = true)
