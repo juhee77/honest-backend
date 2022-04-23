@@ -11,7 +11,6 @@ public class mealService {
     mealRepository mealRepository;
 
     public void saveMeal(Meal Meal){
-        System.out.println("회원가입 요청 들어옴");
         mealRepository.save(Meal);
     }
 

@@ -20,38 +20,37 @@ public class FoodData {
 
     @Id
     private Long id;
-
     private String name;
-    private double one_serving;
-    private double total_content;
-    private double calorie;
-    private double moisture;
-    private double protein;
-    private double fat;
-    private double carbohydrate;
-    private double total_sugar;
-    private double sucrose;
-    private double glucose;
-    private double fructose;
-    private double lactose;
-    private double maltose;
-    private double total_dietary_fiber;
-    private double calcium;
-    private double iron;
-    private double magnesium;
-    private double in;
-    private double potassium;
-    private double sodium;
-    private double zinc;
-    private double copper;
-    private double manganese;
-    private double vitamin_b1;
-    private double vitamin_b2;
-    private double vitamin_c;
-    private double cholesterol;
-    private double total_saturated_fatty_adds;
-    private double trans_fatty_acids;
-    private double several_times;
-    private double caffeine;
+    private double one_serving;//한번 제공량
+    private double total_content; //총 제공량
+    private double calorie;//칼로리
+    private double moisture;//수분함량
+    private double protein;//단백질
+    private double fat;//지방
+    private double carbohydrate;//탄수화물
+    private double total_sugar;//당
+    private double sucrose; //자당
+    private double glucose; //포도당
+    private double fructose; //과당
+    private double lactose; //유당
+    private double maltose; //엿당
+    private double total_dietary_fiber;//식이섬유
+    private double calcium; //칼슘
+    private double iron;//철
+    private double magnesium;//마그네슘
+    private double in;//인
+    private double potassium;//칼륨
+    private double sodium;//나트륨
+    private double zinc;//아연
+    private double copper;//구리
+    private double manganese;//망가니즈
+    private double vitamin_b1;//비타민B1
+    private double vitamin_b2;//비타민B2
+    private double vitamin_c;//비타민C
+    private double cholesterol;//콜레스테롤
+    private double total_saturated_fatty_acids;//포화지방산
+    private double trans_fatty_acids;//트랜스지방
+    private double several_times;//???
+    private double caffeine;//카페인
 
 }
