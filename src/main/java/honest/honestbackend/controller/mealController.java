@@ -7,11 +7,13 @@ import honest.honestbackend.service.mealRepository;
 import honest.honestbackend.service.mealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class mealController {
@@ -24,26 +26,37 @@ public class mealController {
 
     @ResponseBody //dailymeal save to DB
     @PostMapping("/mealSave.do")
-    public String userSavePost(Meal meal){
-        //만약 dailymeal이 존재하면 그냥 식단만 넣고, 존재하지 않으면 만들고 meal을 만들어야 함
-        String userid = meal.getUserid();
-        Date savetime = meal.getSavetime();
-        Dailymeal dailymeal = dailymealService.checkDailyMeal(userid,savetime);
-        meal.setDailymealid(dailymeal.getDailymealid()); // meal dailymeal의 키를 meal 데이터에서 가져와서 설정
-        meal.setMealid(mealRepository.countAllBy()+1); //meal id설정
-        mealRepository.save(meal); //meal 저장
-        System.out.println("meal 저장 !!! ");
+        public String mealSavePost(Map<String, ArrayList> map){
+        System.out.println(map);
+        if(map==null) System.out.println("??");
+        else System.out.println("gg");
 
-        dailymeal.setCalorie(dailymeal.getCalorie()+ meal.getCalorie());
-        dailymeal.setFat(dailymeal.getFat()+meal.getFat());
-        dailymeal.setProtein(dailymeal.getProtein()+meal.getProtein());
-        dailymeal.setCarbohydrate(dailymeal.getCarbohydrate()+meal.getCarbohydrate());
-        dailymealService.saveDailyMeal(dailymeal);
-        System.out.println("dailymeal 저장 !!! "); //없으면 새로 만들고 있으면 update 함
-        //}
-        //else{
-        //    updateDailyMealInfo(dailymeal);
-        //}
+        ArrayList<Meal> mealList= new ArrayList<>();
+        mealList=map.get("mealList");
+
+        String userid;
+        Date savetime;
+        for(Meal meal : mealList){
+            userid = meal.getUserid();
+            savetime = meal.getSavetime();
+
+            Dailymeal dailymeal = dailymealService.checkDailyMeal(userid,savetime);
+
+            //meal.setDailymealid(dailymeal.getDailymealid()); // meal dailymeal의 키를 meal 데이터에서 가져와서 설정
+            meal.setMealid(mealRepository.countAllBy()+1); //meal id설정
+            //mealService.saveMeal(meal);
+            mealRepository.save(meal);
+
+            dailymeal.setCalorie(dailymeal.getCalorie()+ meal.getCalorie());
+            dailymeal.setFat(dailymeal.getFat()+meal.getFat());
+            dailymeal.setProtein(dailymeal.getProtein()+meal.getProtein());
+            dailymeal.setCarbohydrate(dailymeal.getCarbohydrate()+meal.getCarbohydrate());
+
+            dailymealService.saveDailyMeal(dailymeal);
+            System.out.println("dailymeal 저장 !!! "); //없으면 새로 만들고 있으면 update 함
+
+        }
+
         return "post 성공";
         //return null;
     }
