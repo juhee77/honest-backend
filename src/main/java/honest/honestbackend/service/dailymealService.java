@@ -22,7 +22,7 @@ public class dailymealService {
 
     public void saveDailyMeal(Dailymeal dailymeal){
         System.out.println("dailymeal 업데이트 or 생성 ");
-        dailymealRepository.save(dailymeal);
+        dailymealRepository.save(dailymeal); //save는 insert, update 둘 다 가능하다
     }
 
     public Dailymeal checkDailyMeal(String id, Date datekey){
@@ -44,6 +44,10 @@ public class dailymealService {
             return dailymeal;
 
         }
+
+    }
+
+    public void updateDailyMeal(){
 
     }
 
