@@ -19,7 +19,7 @@ import java.math.BigInteger;
 public class FoodData {
 
     @Id
-    private Long id;
+    private long id;
     private String name;
     private double one_serving;//한번 제공량
     private double total_content; //총 제공량

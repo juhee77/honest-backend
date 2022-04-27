@@ -1,11 +1,15 @@
 package honest.honestbackend.controller;
 
 import honest.honestbackend.domain.FoodData;
+import honest.honestbackend.domain.Meal;
+import honest.honestbackend.service.mealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -14,6 +18,8 @@ public class fooddataController {
     honest.honestbackend.service.fooddataService fooddataService;
     @Autowired
     honest.honestbackend.service.fooddataRepository fooddataRepository;
+    @Autowired
+    mealRepository mealRepository;
 
     @ResponseBody
     @GetMapping("/selectFoodName.do")
@@ -22,6 +28,24 @@ public class fooddataController {
         if(fooddataRepository.selectByItem(name)!=null){
             //System.out.println("데이터있음");
             List<FoodData> food = fooddataRepository.selectByItem(name);
+            return food;
+        }
+        else {
+            System.out.println("데이터 없음");
+            return null;
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/selectFoodFromMeal.do")
+    public List<FoodData> FoodFromMealGet(String userid, Date savetime, int timeflag){
+        if(mealRepository.selectByItem(userid, savetime, timeflag)!=null){
+            List<Meal> mealList=mealRepository.selectByItem(userid, savetime, timeflag);
+            List<FoodData> food=new ArrayList<>();
+            for(Meal meal : mealList){
+                food.add(fooddataRepository.findById(meal.getFooddataid()));
+            }
+            //System.out.println(food);
             return food;
         }
         else {
