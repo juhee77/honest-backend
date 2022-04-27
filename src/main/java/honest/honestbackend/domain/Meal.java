@@ -33,5 +33,6 @@ public class Meal implements Serializable {
     private String mealphoto;
     private Date savetime;
     private int timeflag;
+    private long fooddataid;
 
 }
