@@ -2,6 +2,7 @@ package honest.honestbackend.service;
 
 import honest.honestbackend.domain.Dailymeal;
 import honest.honestbackend.domain.DailymealId;
+import honest.honestbackend.domain.Meal;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,6 +24,25 @@ public class dailymealService {
     public void saveDailyMeal(Dailymeal dailymeal){
         System.out.println("dailymeal 업데이트 or 생성 ");
         dailymealRepository.save(dailymeal); //save는 insert, update 둘 다 가능하다
+    }
+
+    public void updateDailyMeal(String userid, Date datekey, List<Meal> mealList){
+        Dailymeal dailymeal = checkDailyMeal(userid, datekey);
+        int calorie=0, protein=0, fat=0, carbohydrate=0;
+
+        for(Meal meal:mealList){
+            calorie+=meal.getCalorie();
+            protein+=meal.getProtein();
+            fat+=meal.getFat();
+            carbohydrate+=meal.getCarbohydrate();
+        }
+
+        dailymeal.setCalorie(calorie);
+        dailymeal.setFat(protein);
+        dailymeal.setProtein(fat);
+        dailymeal.setCarbohydrate(carbohydrate);
+
+        dailymealRepository.save(dailymeal);
     }
 
     public Dailymeal checkDailyMeal(String id, Date datekey){

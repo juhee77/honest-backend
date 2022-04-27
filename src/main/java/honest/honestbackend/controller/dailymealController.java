@@ -130,7 +130,6 @@ public class dailymealController {
     @ResponseBody
     @GetMapping("/updateDailyMealInfo.do")
     public Dailymeal updateDailyMealInfo(Dailymeal dailymeal){
-
         return dailymeal;
     }
     */

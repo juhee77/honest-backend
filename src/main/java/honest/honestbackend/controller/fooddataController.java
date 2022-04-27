@@ -20,7 +20,7 @@ public class fooddataController {
     public List<FoodData> checkFoodNameGet(String name){
         System.out.println(name);
         if(fooddataRepository.selectByItem(name)!=null){
-            System.out.println("데이터있음");
+            //System.out.println("데이터있음");
             List<FoodData> food = fooddataRepository.selectByItem(name);
             return food;
         }
