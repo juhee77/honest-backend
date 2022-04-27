@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 import java.util.List;
 
 public interface fooddataRepository extends JpaRepository<FoodData,Long> {
-    //public FoodData findById(String id);
+    FoodData findById(long id);
 
 //    @Nullable
 //    List<FoodData> findByNameContaining(String name);
