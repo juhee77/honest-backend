@@ -45,10 +45,10 @@ public class dailymealService {
         int carbohydrate=dailymeal.getCarbohydrate();
 
         for(Meal meal:mealList){
-            calorie+=(int)meal.getCalorie();
-            protein+=(int)meal.getProtein();
-            fat+=(int)meal.getFat();
-            carbohydrate+=(int)meal.getCarbohydrate();
+            calorie+=(int)(meal.getCalorie()*meal.getIntake());
+            protein+=(int)(meal.getProtein()*meal.getIntake());
+            fat+=(int)(meal.getFat()*meal.getIntake());
+            carbohydrate+=(int)(meal.getCarbohydrate()*meal.getIntake());
         }
 
         dailymeal.setCalorie(calorie);

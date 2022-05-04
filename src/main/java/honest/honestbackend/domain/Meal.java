@@ -34,5 +34,6 @@ public class Meal implements Serializable {
     private Date savetime;
     private int timeflag;
     private long fooddataid;
+    private double intake;//인분
 
 }
