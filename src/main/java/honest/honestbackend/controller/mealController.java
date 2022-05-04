@@ -79,6 +79,25 @@ public class mealController {
     }
 
     @ResponseBody
+    @GetMapping("/InitPositionMeal.do")
+    public void InitPositionMealGet(String userid, Date savetime, int timeflag){//userid, (dailymealid) , savetime, timeflag
+        deleteMealGet(userid, savetime, timeflag);
+        int flag=timeflag+1;
+        for(;;){
+            List<Meal> mealList=mealRepository.selectByItem(userid, savetime, flag);
+            if(!mealList.isEmpty()) {
+                for(Meal meal:mealList){
+                    System.out.println(meal.getMealname());
+                    meal.setTimeflag(meal.getTimeflag()-1);//위치 하나씩 줄이기
+                    mealRepository.save(meal);
+                }
+                flag++;
+            }
+            else break;
+        }
+    }
+
+    @ResponseBody
     @GetMapping("/selectMeal.do")
     public List<Meal> selectMeal(String userid, Date savetime){
         if(mealRepository.selectBysaveTime(userid, savetime)!=null){
