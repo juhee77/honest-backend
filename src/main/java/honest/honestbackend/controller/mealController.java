@@ -43,6 +43,7 @@ public class mealController {
         //List<Meal> mealList = mealRepository.findBymealId(userid,dailymealid);
         List<Meal> mealList=mealRepository.selectByItem(userid, savetime, timeflag);
         dailymealService.updateDailyMeal(userid, savetime , mealList);
+        //System.out.println("#########"+meal.getIntake());
         /*
         Dailymeal dailymeal = dailymealService.checkDailyMeal(userid,savetime);
         dailymeal.setCalorie(dailymeal.getCalorie()+meal.getCalorie());
@@ -67,10 +68,10 @@ public class mealController {
 
             /*해당 날짜, position에 총 탄단지가 얼마인지*/
             for(Meal meal:mealList){
-                calorie+=(int)meal.getCalorie();
-                protein+=(int)meal.getProtein();
-                fat+=(int)meal.getFat();
-                carbohydrate+=(int)meal.getCarbohydrate();
+                calorie+=(int)(meal.getCalorie()*meal.getIntake());
+                protein+=(int)(meal.getProtein()*meal.getIntake());
+                fat+=(int)(meal.getFat()*meal.getIntake());
+                carbohydrate+=(int)(meal.getCarbohydrate()*meal.getIntake());
             }
 
             mealRepository.deleteByItem(userid,savetime,timeflag); //삭제하고 다시 저장하기 위함
@@ -99,9 +100,9 @@ public class mealController {
 
     @ResponseBody
     @GetMapping("/selectMeal.do")
-    public List<Meal> selectMeal(String userid, Date savetime){
-        if(mealRepository.selectBysaveTime(userid, savetime)!=null){
-            List<Meal> mealList=mealRepository.selectBysaveTime(userid, savetime);
+    public List<Meal> selectMeal(String userid, Date savetime, int timeflag){
+        if(mealRepository.selectByItem(userid, savetime, timeflag)!=null){
+            List<Meal> mealList=mealRepository.selectByItem(userid, savetime, timeflag);
             return mealList;
         }
         else {
