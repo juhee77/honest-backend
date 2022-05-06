@@ -26,20 +26,34 @@ public class dailymealService {
         dailymealRepository.save(dailymeal); //save는 insert, update 둘 다 가능하다
     }
 
+    public void deleteDailyMeal(String userid, Date datekey, int calorie, int protein, int fat, int carbohydrate){
+        Dailymeal dailymeal = checkDailyMeal(userid, datekey);
+
+        dailymeal.setCalorie(dailymeal.getCalorie()-calorie);
+        dailymeal.setFat(dailymeal.getFat()-fat);
+        dailymeal.setProtein(dailymeal.getProtein()-protein);
+        dailymeal.setCarbohydrate(dailymeal.getCarbohydrate()-carbohydrate);
+
+        dailymealRepository.save(dailymeal);
+    }
+
     public void updateDailyMeal(String userid, Date datekey, List<Meal> mealList){
         Dailymeal dailymeal = checkDailyMeal(userid, datekey);
-        int calorie=0, protein=0, fat=0, carbohydrate=0;
+        int calorie=dailymeal.getCalorie();
+        int protein=dailymeal.getProtein();
+        int fat=dailymeal.getFat();
+        int carbohydrate=dailymeal.getCarbohydrate();
 
         for(Meal meal:mealList){
-            calorie+=meal.getCalorie();
-            protein+=meal.getProtein();
-            fat+=meal.getFat();
-            carbohydrate+=meal.getCarbohydrate();
+            calorie+=(int)(meal.getCalorie()*meal.getIntake());
+            protein+=(int)(meal.getProtein()*meal.getIntake());
+            fat+=(int)(meal.getFat()*meal.getIntake());
+            carbohydrate+=(int)(meal.getCarbohydrate()*meal.getIntake());
         }
 
         dailymeal.setCalorie(calorie);
-        dailymeal.setFat(protein);
-        dailymeal.setProtein(fat);
+        dailymeal.setFat(fat);
+        dailymeal.setProtein(protein);
         dailymeal.setCarbohydrate(carbohydrate);
 
         dailymealRepository.save(dailymeal);
