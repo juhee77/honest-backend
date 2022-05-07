@@ -1,9 +1,11 @@
 package honest.honestbackend.controller;
 
 import honest.honestbackend.domain.Dailymeal;
+import honest.honestbackend.domain.Meal;
 import honest.honestbackend.domain.User;
 import honest.honestbackend.service.dailymealRepository;
 import honest.honestbackend.service.dailymealService;
+import honest.honestbackend.service.mealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,8 @@ public class dailymealController {
     dailymealRepository dailymealRepository;
     @Autowired
     dailymealService dailymealService;
-
+    @Autowired
+    honest.honestbackend.service.mealRepository mealRepository;
 
     @ResponseBody //dailymeal save to DB
     @PostMapping("/dailymealSave.do")
@@ -144,6 +147,16 @@ public class dailymealController {
     }
     */
 
+
+    @ResponseBody
+    @GetMapping("/updateDailyMeal.do")
+    public void updateDailyMeal(String id, Date datekey){
+
+        List<Meal> mealList=mealRepository.selectBysaveTime(id, datekey);
+        //dailymealService.deleteDailyMeal(id, datekey, calorie, protein, fat, carbohydrate);
+        dailymealService.updateDailyMeal(id,datekey,mealList);
+
+    }
 
     @ResponseBody
     @GetMapping("/test.do")

@@ -23,6 +23,9 @@ public interface mealRepository extends JpaRepository<Meal, MealId> { //제네�
     @Query("select u from Meal u where u.userid = ?1 and u.savetime = ?2")
     List<Meal> selectBysaveTime(String userid, Date savetime);
 
+    @Query("select Max(u.timeflag) from Meal u where u.userid = ?1 and u.savetime = ?2")
+    int maxTimeFlag(String userid, Date savetime);
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("delete from Meal m where m.userid = ?1 and m.savetime = ?2 and m.timeflag=?3")
