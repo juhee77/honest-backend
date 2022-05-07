@@ -39,19 +39,13 @@ public class fooddataController {
     @ResponseBody
     @GetMapping("/selectFoodFromMeal.do")
     public List<FoodData> FoodFromMealGet(String userid, Date savetime, int timeflag){
-        if(mealRepository.selectByItem(userid, savetime, timeflag)!=null){
-            List<Meal> mealList=mealRepository.selectByItem(userid, savetime, timeflag);
-            List<FoodData> food=new ArrayList<>();
-            for(Meal meal : mealList){
-                food.add(fooddataRepository.findById(meal.getFooddataid()));
-            }
-            //System.out.println(food);
-            return food;
+        List<Meal> mealList=mealRepository.selectByItem(userid, savetime, timeflag);
+        List<FoodData> food=new ArrayList<>();
+        for(Meal meal : mealList){
+            food.add(fooddataRepository.findById(meal.getFooddataid()));
         }
-        else {
-            System.out.println("데이터 없음");
-            return null;
-        }
+        //System.out.println(food);
+        return food;
     }
 
 }

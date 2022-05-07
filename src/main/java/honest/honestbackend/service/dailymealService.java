@@ -39,10 +39,12 @@ public class dailymealService {
 
     public void updateDailyMeal(String userid, Date datekey, List<Meal> mealList){
         Dailymeal dailymeal = checkDailyMeal(userid, datekey);
+        int calorie=0, protein=0, fat=0, carbohydrate=0;
+        /*
         int calorie=dailymeal.getCalorie();
         int protein=dailymeal.getProtein();
         int fat=dailymeal.getFat();
-        int carbohydrate=dailymeal.getCarbohydrate();
+        int carbohydrate=dailymeal.getCarbohydrate();*/
 
         for(Meal meal:mealList){
             calorie+=(int)(meal.getCalorie()*meal.getIntake());
