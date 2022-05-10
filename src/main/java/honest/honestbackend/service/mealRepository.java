@@ -30,4 +30,5 @@ public interface mealRepository extends JpaRepository<Meal, MealId> { //제네�
     @Modifying(clearAutomatically = true)
     @Query("delete from Meal m where m.userid = ?1 and m.savetime = ?2 and m.timeflag=?3")
     void deleteByItem(String userid, Date savetime, int timeflag);
+
 }

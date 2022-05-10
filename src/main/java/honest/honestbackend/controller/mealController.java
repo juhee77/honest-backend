@@ -133,10 +133,22 @@ public class mealController {
     }
     */
 
+    //해당 날짜의 섭취음식 모두 출력
+    @ResponseBody
+    @GetMapping("/selectOneDayFood.do")
+    public List<Meal> selectOneDayFood(String userid, Date savetime){
+        List<Meal> mealList = mealRepository.selectBysaveTime(userid, savetime);
+        return mealList;
+    }
+
+
+
     @ResponseBody
     @GetMapping("/mealtest.do")
     public void test(String s){
         mealService.mealTest();
     }
+
+
 
 }
