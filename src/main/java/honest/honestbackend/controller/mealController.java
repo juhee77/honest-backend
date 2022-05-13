@@ -2,7 +2,10 @@ package honest.honestbackend.controller;
 
 import honest.honestbackend.domain.FoodData;
 import honest.honestbackend.domain.Meal;
+import honest.honestbackend.domain.User;
 import honest.honestbackend.service.dailymealRepository;
+import honest.honestbackend.service.userRepository;
+import honest.honestbackend.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,8 @@ public class mealController {
     honest.honestbackend.service.dailymealService dailymealService;
     @Autowired
     dailymealRepository dailymealRepository;
+    @Autowired
+    honest.honestbackend.service.userRepository userRepository;
 
     @ResponseBody
     @PostMapping("/mealSave.do")
@@ -139,6 +144,57 @@ public class mealController {
     public List<Meal> selectOneDayFood(String userid, Date savetime){
         List<Meal> mealList = mealRepository.selectBysaveTime(userid, savetime);
         return mealList;
+    }
+
+    //해당 날짜의 섭취음식에 대한 개수(0이면 음식 추천 불가)
+    //juhee
+    @ResponseBody
+    @GetMapping("/selectOneDayFoodCnt.do")
+    public String selectOneDayFoodCnt (String userid, Date savetime){
+        List<Meal> mealList = mealRepository.selectBysaveTime(userid, savetime);
+        if(mealList.size() == 0) return null;
+        //음식 추천 부분으로 넘긴
+        else {
+            User user = userRepository.findById(userid);
+            //하단은 원장 탄단지
+            int target_calorie = user.getTarget_calories();
+            int gram_of_carbohydrate = (int) (target_calorie * 0.5);
+            int gram_of_protein = (int) (target_calorie * 0.3);
+            int gram_of_fat = (int) (target_calorie * 0.2);
+
+            //그날 섭취 영양소 부분
+            double calorie=0,carbohydrate=0,fat=0,protein = 0;
+            for(int i=0;i<mealList.size();i++) {
+                Meal temp = mealList.get(i);
+                carbohydrate += temp.getCarbohydrate(); //섭취
+                protein += temp.getProtein();
+                fat += temp.getFat();
+                calorie += temp.getCalorie();
+
+            }
+            List<FoodData> recommendedFoodData;
+            if(gram_of_carbohydrate<=carbohydrate&&gram_of_fat<=fat&&gram_of_protein<=protein){
+                //모두 초과인경우
+            }
+            else{
+                if(gram_of_protein>protein){
+                    //단백질 부족
+                }
+                if(gram_of_fat>fat){
+                    //지방 부족
+                }
+                if(gram_of_carbohydrate>carbohydrate){
+                    //탄수화물 부족
+                }
+            }
+
+            if()
+
+
+
+
+
+        }
     }
 
 
