@@ -36,6 +36,11 @@ public interface dailymealRepository extends JpaRepository<Dailymeal, DailymealI
             "where d.userid = ?1 and d.datekey=?2")
     void updateById(String userid, Date datekey, int stepcount, int calorie, int protein, int carbohydrate, int fat, BigInteger dailymealid);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("delete from Meal m where m.userid = ?1")
+    void deleteById(String userid);
+
     //@Transactional
     //@Modifying(clearAutomatically = true)
     //@Query("UPDATE Dailymeal SET id = count WHERE uId =? userId and dateKey = date")

@@ -32,10 +32,11 @@ public interface userRepository extends JpaRepository<User,Long> {
             "u.height=?6, " +
             "u.activity_index=?7, " +
             "u.target_calories=?8, " +
-            "u.profile=?9 " +
+            "u.profile=?9, " +
+            "u.email=?10" +
             "where u.id=?1")
         //void updateById(@Param("id") String id, @Param("nickname") String nickname, @Param("sex") char sex, @Param("age") Integer age, @Param("weight") Integer weight, @Param("height") Integer height, @Param("activity_index") Integer activity_index, @Param("target_calories") Integer target_calories, @Param("profile") String profile);
-    void updateById(String id, String nickname, char sex, Integer age, Integer weight, Integer height, Integer activity_index, Integer target_calories,String profile);
+    void updateById(String id, String nickname, char sex, Integer age, Integer weight, Integer height, Integer activity_index, Integer target_calories,String profile, String email);
 
 /*참고 --쿼리사용
     @Query("SELECT a FROM USER a WHERE a.oid = ?1")
