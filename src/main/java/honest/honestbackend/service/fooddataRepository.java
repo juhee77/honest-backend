@@ -17,6 +17,9 @@ public interface fooddataRepository extends JpaRepository<FoodData,Long> {
     @Query(value="SELECT f From FoodData f WHERE f.name LIKE %:name%")//CONCAT('%',:name,'%') //%:name%
     List<FoodData> selectByItem(@Param("name") String name);
 
+    @Query(value="SELECT f From FoodData f WHERE f.name= ?1")
+    FoodData selectByName(@Param("name") String name);
+
 //    @Query("SELECT f FROM FoodData f WHERE f.name LIKE %?1%")
 //    List<FoodData> selectByItem(String name);
 
