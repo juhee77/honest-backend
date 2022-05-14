@@ -159,6 +159,12 @@ public class dailymealController {
     }
 
     @ResponseBody
+    @GetMapping("/setStepCount.do")
+    public void setStepCount(String id, Date datekey, int stepCount){
+        dailymealService.updateStepCount(id,datekey,stepCount);
+    }
+
+    @ResponseBody
     @GetMapping("/test.do")
     public void test(String s){
         dailymealService.test();
