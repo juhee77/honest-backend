@@ -4,8 +4,10 @@ import honest.honestbackend.domain.FoodData;
 import honest.honestbackend.domain.Meal;
 import honest.honestbackend.domain.User;
 import honest.honestbackend.service.dailymealRepository;
+import honest.honestbackend.service.fooddataRepository;
 import honest.honestbackend.service.userRepository;
 import honest.honestbackend.service.userService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,8 @@ public class mealController {
     dailymealRepository dailymealRepository;
     @Autowired
     honest.honestbackend.service.userRepository userRepository;
+    @Autowired
+    honest.honestbackend.service.fooddataRepository fooddataRepository;
 
     @ResponseBody
     @PostMapping("/mealSave.do")
@@ -150,7 +154,7 @@ public class mealController {
     //juhee
     @ResponseBody
     @GetMapping("/selectOneDayFoodCnt.do")
-    public String selectOneDayFoodCnt (String userid, Date savetime){
+    public List<FoodData> selectOneDayFoodCnt (String userid, Date savetime){
         List<Meal> mealList = mealRepository.selectBysaveTime(userid, savetime);
         if(mealList.size() == 0) return null;
         //음식 추천 부분으로 넘긴
@@ -163,7 +167,7 @@ public class mealController {
             int gram_of_fat = (int) (target_calorie * 0.2);
 
             //그날 섭취 영양소 부분
-            double calorie=0,carbohydrate=0,fat=0,protein = 0;
+            int calorie=0,carbohydrate=0,fat=0,protein = 0;
             for(int i=0;i<mealList.size();i++) {
                 Meal temp = mealList.get(i);
                 carbohydrate += temp.getCarbohydrate(); //섭취
@@ -172,29 +176,34 @@ public class mealController {
                 calorie += temp.getCalorie();
 
             }
-            List<FoodData> recommendedFoodData;
+
+            List<FoodData> recommendedFoodData = null;
             if(gram_of_carbohydrate<=carbohydrate&&gram_of_fat<=fat&&gram_of_protein<=protein){
-                //모두 초과인경우
+                //모두 초과인경우 --> 건강식 위주로 추가
             }
             else{
                 if(gram_of_protein>protein){
-                    //단백질 부족
+                    //단백질 부족 부족한 단백질을 채울수 있는음식, 칼로리는 현재 채울수 있는거 미만 orderby 해서
+                    //랜덤으로 할거면 위에 테이블을 where view 로 해서 랜덤 3가지
+                    recommendedFoodData = fooddataRepository.selectByLackProtein( gram_of_protein-protein);
                 }
-                if(gram_of_fat>fat){
+                if(gram_of_fat>fat && recommendedFoodData.size()==0){
                     //지방 부족
+                    recommendedFoodData = fooddataRepository.selectByLackfat(gram_of_fat-fat);
                 }
-                if(gram_of_carbohydrate>carbohydrate){
+                if(gram_of_carbohydrate>carbohydrate&& recommendedFoodData.size()==0){
                     //탄수화물 부족
+                    recommendedFoodData = fooddataRepository.selectByLackCarbohydrate(gram_of_carbohydrate-carbohydrate);
                 }
             }
 
-            if()
+            if(recommendedFoodData.size()<3){
+                return null;
+            }
 
-
-
-
-
+            return recommendedFoodData;
         }
+
     }
 
 
