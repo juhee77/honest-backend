@@ -25,6 +25,7 @@ public class User {
     private Integer activity_index;
     private Integer target_calories;
     private String profile;
+    private String email;
 
 
 }

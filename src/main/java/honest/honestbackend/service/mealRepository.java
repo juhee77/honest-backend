@@ -13,8 +13,8 @@ import java.util.List;
 
 public interface mealRepository extends JpaRepository<Meal, MealId> { //제네릭 타입
     //public Meal findById(String userId, Date date);
-    @Query("select u from Meal u where u.userid = ?1 and u.dailymealid = ?2")
-    public List<Meal> findBymealId(String id, long dailymealid);//mealid는 제외
+    @Query("select u from Meal u where u.userid = ?1")
+    List<Meal> findByMealId(String id);
 
     @Query("select u from Meal u where u.userid = ?1 and u.savetime = ?2 and u.timeflag=?3")
     List<Meal> selectByItem(String userid, Date savetime, int timeflag);
@@ -30,5 +30,10 @@ public interface mealRepository extends JpaRepository<Meal, MealId> { //제네�
     @Modifying(clearAutomatically = true)
     @Query("delete from Meal m where m.userid = ?1 and m.savetime = ?2 and m.timeflag=?3")
     void deleteByItem(String userid, Date savetime, int timeflag);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("delete from Dailymeal m where m.userid = ?1")
+    void deleteById(String userid);
 
 }

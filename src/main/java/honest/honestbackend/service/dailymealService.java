@@ -83,8 +83,10 @@ public class dailymealService {
 
     }
 
-    public void updateDailyMeal(){
-
+    public void updateStepCount(String userid, Date datekey, int stepCount){
+        Dailymeal dailymeal = dailymealRepository.findByDailymealId(userid, datekey);
+        dailymeal.setStepcount(stepCount);
+        dailymealRepository.save(dailymeal);
     }
 
     public void test(){
