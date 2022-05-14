@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Date;
 
 @Data
@@ -30,7 +31,9 @@ public class Meal implements Serializable {
     private int carbohydrate;
     private int fat;
     private String mealname;
-    private String mealphoto;
+    @Lob
+    @Column(name = "mealphoto", columnDefinition="BLOB")
+    private byte[] mealphoto;
     private Date savetime;
     private int timeflag;
     private long fooddataid;
