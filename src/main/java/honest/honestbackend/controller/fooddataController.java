@@ -48,4 +48,21 @@ public class fooddataController {
         return food;
     }
 
+    @ResponseBody
+    @GetMapping("/selectFoodFromFoodName")
+    public FoodData FoodFromFoodNameGet(String name){
+        FoodData food=null;
+        if(fooddataRepository.selectByName(name)!=null) {
+            food = fooddataRepository.selectByName(name);
+        }
+        else{
+            if(fooddataRepository.selectByItem(name)!=null){
+                List<FoodData> foodList = fooddataRepository.selectByItem(name);
+                food=foodList.get(0);//첫번째 값
+            }
+        }
+        return food;
+    }
+
+
 }
