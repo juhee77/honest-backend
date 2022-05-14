@@ -2,7 +2,10 @@ package honest.honestbackend.controller;
 
 import com.nimbusds.jose.shaded.json.JSONArray;
 import com.nimbusds.jose.shaded.json.JSONObject;
+import honest.honestbackend.domain.Meal;
 import honest.honestbackend.domain.User;
+import honest.honestbackend.service.dailymealRepository;
+import honest.honestbackend.service.mealRepository;
 import honest.honestbackend.service.userRepository;
 import honest.honestbackend.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class userController {
 
@@ -19,6 +24,10 @@ public class userController {
     userService userService;
     @Autowired
     userRepository userRepository;
+    @Autowired
+    honest.honestbackend.service.mealRepository mealRepository;
+    @Autowired
+    honest.honestbackend.service.dailymealRepository dailymealRepository;
 
     @ResponseBody
     @GetMapping("/checkUserId.do")
@@ -53,8 +62,9 @@ public class userController {
             Integer activity_index=user.getActivity_index();
             Integer target_calories=user.getTarget_calories();
             String profile=user.getProfile();
+            String email=user.getEmail();
 
-            userRepository.updateById(id,nickname,sex,age,weight,height,activity_index,target_calories,profile);
+            userRepository.updateById(id,nickname,sex,age,weight,height,activity_index,target_calories,profile,email);
             return "update 성공";
         }
         else
@@ -66,7 +76,10 @@ public class userController {
     public String deleteIdGet(String id){
         if(userRepository.findById(id)!=null){
             User user = userRepository.findById(id);
+            //List<Meal> mealList = mealRepository.findByMealId(id);
             userRepository.delete(user);
+            mealRepository.deleteById(id);
+            dailymealRepository.deleteById(id);
             return "삭제 성공";
         }
         else
