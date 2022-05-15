@@ -10,10 +10,12 @@ import honest.honestbackend.service.userService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -153,8 +155,17 @@ public class mealController {
     //해당 날짜의 섭취음식에 대한 개수(0이면 음식 추천 불가)
     //juhee
     @ResponseBody
-    @GetMapping("/selectOneDayFoodCnt.do")
-    public List<FoodData> selectOneDayFoodCnt (String userid, Date savetime){
+    @GetMapping("/oneDayMealCount.do")
+    public Integer oneDayMealCount (String userid, Date savetime){
+        List<Meal> mealList = mealRepository.selectBysaveTime(userid, savetime);
+        return mealList.size();
+    }
+
+
+    //juhee
+    @ResponseBody
+    @GetMapping("/recommendMeal.do")
+    public List<FoodData> recommendMeal (String userid, Date savetime){
         List<Meal> mealList = mealRepository.selectBysaveTime(userid, savetime);
         if(mealList.size() == 0) return null;
         //음식 추천 부분으로 넘긴
@@ -162,9 +173,9 @@ public class mealController {
             User user = userRepository.findById(userid);
             //하단은 원장 탄단지
             int target_calorie = user.getTarget_calories();
-            int gram_of_carbohydrate = (int) (target_calorie * 0.5);
-            int gram_of_protein = (int) (target_calorie * 0.3);
-            int gram_of_fat = (int) (target_calorie * 0.2);
+            int gram_of_carbohydrate = (int) (target_calorie * 0.5)/4;
+            int gram_of_protein = (int) (target_calorie * 0.3)/4;
+            int gram_of_fat = (int) (target_calorie * 0.2)/9;
 
             //그날 섭취 영양소 부분
             int calorie=0,carbohydrate=0,fat=0,protein = 0;
@@ -176,10 +187,13 @@ public class mealController {
                 calorie += temp.getCalorie();
 
             }
+            //System.out.println("섭취"+carbohydrate+" "+fat+" "+protein);
+            //System.out.println("권장섭취"+gram_of_carbohydrate+" "+gram_of_fat+" "+gram_of_protein);
 
             List<FoodData> recommendedFoodData = null;
             if(gram_of_carbohydrate<=carbohydrate&&gram_of_fat<=fat&&gram_of_protein<=protein){
                 //모두 초과인경우 --> 건강식 위주로 추가
+                recommendedFoodData = fooddataRepository.selectByHealthyRand3();
             }
             else{
                 if(gram_of_protein>protein){
@@ -187,18 +201,23 @@ public class mealController {
                     //랜덤으로 할거면 위에 테이블을 where view 로 해서 랜덤 3가지
                     recommendedFoodData = fooddataRepository.selectByLackProtein( gram_of_protein-protein);
                 }
-                if(gram_of_fat>fat && recommendedFoodData.size()==0){
+                if(gram_of_fat>fat && CollectionUtils.isEmpty(recommendedFoodData)){
                     //지방 부족
                     recommendedFoodData = fooddataRepository.selectByLackfat(gram_of_fat-fat);
                 }
-                if(gram_of_carbohydrate>carbohydrate&& recommendedFoodData.size()==0){
+                if(gram_of_carbohydrate>carbohydrate&& CollectionUtils.isEmpty(recommendedFoodData)){
                     //탄수화물 부족
                     recommendedFoodData = fooddataRepository.selectByLackCarbohydrate(gram_of_carbohydrate-carbohydrate);
                 }
             }
 
             if(recommendedFoodData.size()<3){
-                return null;
+                if(recommendedFoodData.size()==0) //모두 부족한 경우로 이 상황은 나올수 없는 상황인지 확인필요
+                    recommendedFoodData = fooddataRepository.selectByHealthyRand3();
+                else if(recommendedFoodData.size()==1)
+                    recommendedFoodData.addAll(fooddataRepository.selectByHealthyRand2());
+                else
+                    recommendedFoodData.addAll(fooddataRepository.selectByHealthyRand1());
             }
 
             return recommendedFoodData;
