@@ -32,8 +32,8 @@ public class Meal implements Serializable {
     private int fat;
     private String mealname;
     @Lob
-    @Column(name = "mealphoto", columnDefinition="BLOB")
-    private byte[] mealphoto;
+    @Column(name = "mealphoto", columnDefinition="LONGBLOB")
+    private String mealphoto;
     private Date savetime;
     private int timeflag;
     private long fooddataid;
