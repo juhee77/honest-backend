@@ -52,7 +52,7 @@ public class fooddataController {
     @GetMapping("/selectFoodFromFoodName")
     public FoodData FoodFromFoodNameGet(String name){
         FoodData food=null;
-        /* 데이터 중복 제거 후 다시 활성화
+
         if(fooddataRepository.selectByName(name)!=null) {
             food = fooddataRepository.selectByName(name);
         }
@@ -61,10 +61,6 @@ public class fooddataController {
                 List<FoodData> foodList = fooddataRepository.selectByItem(name);
                 food=foodList.get(0);//첫번째 값
             }
-        }*/
-        if(fooddataRepository.selectByItem(name)!=null){
-            List<FoodData> foodList = fooddataRepository.selectByItem(name);
-            food=foodList.get(0);//첫번째 값
         }
         System.out.println(food.getName());
         return food;
