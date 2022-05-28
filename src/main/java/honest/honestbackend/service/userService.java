@@ -10,7 +10,6 @@ public class userService {
     userRepository userRepository;
 
     public void joinUser(User user){
-        System.out.println("회원가입 요청 들어옴");
         userRepository.save(user);
     }
 }

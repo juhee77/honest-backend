@@ -36,7 +36,7 @@ public class mealController {
     @ResponseBody
     @PostMapping("/mealSave.do")
     public String mealSavePost(Meal meal){
-        System.out.println(meal.getMealname());
+        //System.out.println(meal.getMealname());
         String userid;
         Date savetime;
         long dailymealid;
@@ -108,7 +108,7 @@ public class mealController {
                 List<Meal> mealList = mealRepository.selectByItem(userid, savetime, flag);
                 if (!mealList.isEmpty()) {
                     for (Meal meal : mealList) {
-                        System.out.println(meal.getMealname());
+                        //System.out.println(meal.getMealname());
                         meal.setTimeflag(meal.getTimeflag() - 1);//위치 하나씩 줄이기
                         mealRepository.save(meal);
                     }

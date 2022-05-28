@@ -48,15 +48,11 @@ public class dailymealController {
         //dailymeal.setDatekey(date);
 
         Dailymeal dailymeal = dailymealRepository.findByDailymealId(id,datekey);
-        if( dailymeal!= null ){
-            System.out.println(dailymeal.toString());
+        if( dailymeal!= null )
             return dailymeal;
-        }
         else{
             Dailymeal Dailymeal = new Dailymeal(id, datekey, 0, 0, 0, 0, 0, dailymealRepository.countAllBy()+1);
             dailymealRepository.save(Dailymeal);
-
-            System.out.println(Dailymeal.toString());
             return Dailymeal;
         }
 
@@ -164,10 +160,5 @@ public class dailymealController {
         dailymealService.updateStepCount(id,datekey,stepCount);
     }
 
-    @ResponseBody
-    @GetMapping("/test.do")
-    public void test(String s){
-        dailymealService.test();
-    }
 
 }

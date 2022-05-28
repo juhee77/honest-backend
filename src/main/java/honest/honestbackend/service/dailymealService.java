@@ -22,7 +22,6 @@ public class dailymealService {
     dailymealRepository dailymealRepository;
 
     public void saveDailyMeal(Dailymeal dailymeal){
-        System.out.println("dailymeal 업데이트 or 생성 ");
         dailymealRepository.save(dailymeal); //save는 insert, update 둘 다 가능하다
     }
 
@@ -66,20 +65,13 @@ public class dailymealService {
         //Date date = new Date(sdf.format(datekey)); //시간 때문에 형식을 바꿈 00시로 바꿔줘야 함..
         Dailymeal dailymeal = dailymealRepository.findByDailymealId(id, datekey);
 
-        //System.out.println(dailymeal2.toString());
         if(dailymeal==null){ //TODO: 나중에 이 부분은 생성된 날짜만 기록되어 있어야 하니까 생략하고 ( NULL로 리턴해서 안드로이드에서 해당날짜에 대한 정보는 없습니다로 출력하도록 해야함)
-            System.out.println("중복없음!");
             Dailymeal Dailymeal = new Dailymeal(id, datekey, 0, 0, 0, 0, 0, dailymealRepository.countAllBy()+1);
             //dailymealRepository.save(Dailymeal); // 만약 없으면 새로 만들기 , make new dailymeal
-            System.out.println(Dailymeal.toString());
             return Dailymeal;
         }
-        else{
-            System.out.println("중복있음!");
-            System.out.println(dailymeal.toString());
+        else
             return dailymeal;
-
-        }
 
     }
 
@@ -89,9 +81,6 @@ public class dailymealService {
         dailymealRepository.save(dailymeal);
     }
 
-    public void test(){
-        System.out.println(dailymealRepository.findAll().toString());
-    }
 
     //public void setId(Dailymeal dailymeal){
     //    int count = dailymealRepository.countAllBy();
