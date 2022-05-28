@@ -24,14 +24,14 @@ public class fooddataController {
     @ResponseBody
     @GetMapping("/selectFoodName.do")
     public List<FoodData> checkFoodNameGet(String name){
-        System.out.println(name);
+        //System.out.println(name);
         if(fooddataRepository.selectByItem(name)!=null){
             //System.out.println("데이터있음");
             List<FoodData> food = fooddataRepository.selectByItem(name);
             return food;
         }
         else {
-            System.out.println("데이터 없음");
+            //System.out.println("데이터 없음");
             return null;
         }
     }
@@ -62,7 +62,7 @@ public class fooddataController {
                 food=foodList.get(0);//첫번째 값
             }
         }
-        System.out.println(food.getName());
+        //System.out.println(food.getName());
         return food;
     }
 
