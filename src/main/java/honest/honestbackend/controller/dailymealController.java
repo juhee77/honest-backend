@@ -157,7 +157,14 @@ public class dailymealController {
     @ResponseBody
     @GetMapping("/setStepCount.do")
     public void setStepCount(String id, Date datekey, int stepCount){
-        dailymealService.updateStepCount(id,datekey,stepCount);
+        Dailymeal dailymeal = dailymealRepository.findByDailymealId(id,datekey);
+        if( dailymeal!= null )
+            dailymealService.updateStepCount(id,datekey,stepCount);
+        else{
+            Dailymeal Dailymeal = new Dailymeal(id, datekey, 0, 0, 0, 0, 0, dailymealRepository.countAllBy()+1);
+            dailymealRepository.save(Dailymeal);
+            dailymealService.updateStepCount(id,datekey,stepCount);
+        }
     }
 
 
