@@ -138,11 +138,13 @@ AI기반 음식 분석 애플리케이션, 플랜밀
   - 3페이지에서 지난주 섭취한 식단들을 그리드 형식으로 확인 가능
   - 4페이지에서 사용자의 주간 활동 기록을 확인 가능 
 
+## ✔ UI 프로토타입
 <br>
 
-|                로그인                |             기본정보입력             |             개인정보수정            |
-|:-------------------------------------:|:-------------------------------------------------:|:-----------------------------------------------:|
-|![login](https://user-images.githubusercontent.com/56522878/173003261-bedb9b73-e897-4a18-93d0-202fdc90a5f6.png)|![init](https://user-images.githubusercontent.com/56522878/173002744-dada2409-242d-4a94-b260-519e21304e0a.png)|![modify](https://user-images.githubusercontent.com/56522878/173002766-e196cb91-e583-49af-acbb-4ffbe94cf961.png)|
+![image](https://user-images.githubusercontent.com/51548333/191671315-7137a435-d202-460d-8b3b-424d3f8b284a.png)
+<br>
+
+![image](https://user-images.githubusercontent.com/51548333/191671425-5479a887-0550-4040-8165-24a090b7d0cd.png)
 
 
 # honest-backend
