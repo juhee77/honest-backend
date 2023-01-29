@@ -8,6 +8,7 @@ AI기반 음식 분석 애플리케이션, 플랜밀
 ## 🎥 시연영상
 + [플랜밀 시연영상](https://www.youtube.com/watch?v=GAX8TYVCVOc&list=PLJ8elSeS2xGzF_XREuwtVei7JwcD2SSUv&index=20)
 + [플랜밀 실행화면](https://drive.google.com/file/d/199o296p8xeMNLPuAVAxeEanmQb7kMQQf/view?usp=sharing)
++ [최종 결과 발표 ppt](https://drive.google.com/file/d/1jl1eazyiEcuSrWE15g5vhXjazcdMFAQV/view?usp=sharing)
 
 <br>
 
@@ -42,7 +43,6 @@ AI기반 음식 분석 애플리케이션, 플랜밀
    <br><br>
 2. [🔈 구현 결과]
    <br><br>
-
 ---
 
 ## 🥜 프로젝트 소개
